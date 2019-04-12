@@ -13,23 +13,23 @@ const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
 // Conectando o usúario numa sala única
-io.on('connection', socket => {
-	socket.on('connectRoom', box => {
-		socket.join(box);
-	});
+io.on('connection', (socket) => {
+  socket.on('connectRoom', (box) => {
+    socket.join(box);
+  });
 });
 
 mongoose.connect(
-	'mongodb+srv://omnistack:omnistack@cluster0-7ejld.mongodb.net/test?retryWrites=true',
-	{
-		useNewUrlParser: true
-	}
+  'mongodb+srv://omnistack:omnistack@cluster0-7ejld.mongodb.net/test?retryWrites=true',
+  {
+    useNewUrlParser: true,
+  },
 );
 
 app.use((req, res, next) => {
-	req.io = io;
+  req.io = io;
 
-	return next();
+  return next();
 });
 
 // Cadastrando um módulo no express
